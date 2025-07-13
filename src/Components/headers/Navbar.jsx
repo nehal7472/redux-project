@@ -1,7 +1,15 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router";
 
 export default function Navbar() {
+  const carts = useSelector((state) => state.cart.value);
+
+  const cartItemsNo = carts.reduce(
+    (total, product) => total + product.quantity,
+    0
+  );
+
   return (
     <div className="navbar bg-base-100 shadow-sm">
       <div className="flex-1">
@@ -41,7 +49,9 @@ export default function Navbar() {
                   d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
                 />{" "}
               </svg>
-              <span className="badge badge-sm indicator-item">0</span>
+              <span className="badge badge-sm indicator-item">
+                {cartItemsNo}
+              </span>
             </div>
           </div>
           <div
@@ -49,8 +59,9 @@ export default function Navbar() {
             className="card card-compact dropdown-content bg-base-100 z-1 mt-3 w-52 shadow"
           >
             <div className="card-body">
-              <span className="text-lg font-bold">0 Items</span>
-              <span className="text-info">Subtotal: $00</span>
+              <span className="text-lg font-bold">
+                {carts.length ? carts.length : 0} Items
+              </span>
               <Link to={"cart"} className="card-actions">
                 <button className="btn btn-primary btn-block">View cart</button>
               </Link>

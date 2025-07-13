@@ -8,14 +8,13 @@ const AddProductForm = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
 
   const onSubmit = (data) => {
     dispatch(addProduct(data));
-
-    console.log("Product added:", data);
-    
+    reset();
   };
 
   return (
@@ -87,10 +86,7 @@ const AddProductForm = () => {
         <p className="text-red-500">Release Date is required</p>
       )}
 
-      <button
-        type="submit"
-        className="btn btn-primary w-full"
-      >
+      <button type="submit" className="btn btn-primary w-full">
         Add Product
       </button>
     </form>
